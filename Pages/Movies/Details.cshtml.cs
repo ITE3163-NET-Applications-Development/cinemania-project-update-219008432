@@ -20,15 +20,19 @@ namespace CineMania.Pages.Movies
         }
 
         public Movie Movie { get; set; }
+        public List<Movie> Category { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null)
+            if (id == null && Category == null)
             {
                 return NotFound();
             }
 
             Movie = await _context.Movies.FirstOrDefaultAsync(m => m.Id == id);
+           Category = await _context.Movies.Where(m => m.Genre == Movie.Genre).
+                           ToListAsync(); 
+            
 
             if (Movie == null)
             {

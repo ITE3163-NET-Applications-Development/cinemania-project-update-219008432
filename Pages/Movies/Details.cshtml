@@ -9,19 +9,31 @@
 <div>
     <h4>@Model.Movie.Title</h4>
     <hr />
-    <dl class="row">
-        <div class="col-md-3">
-            <img class="img-fluid" src="/images/posters/@Model.Movie.ImageName" alt="">
-        </div>
-        <div class="col-md-6">
-            <h5>Synopsis</h5>
-            <p>@Model.Movie.Description</p>
-        </div>
-        <div class="col-md-3">
-            <h5>Related Movies</h5>
-        </div>
-    </dl>
+    <dl class="row"/>
+    <div class="col-md-3">
+        <img class="img-fluid" src="/images/posters/@Model.Movie.ImageName" alt="">
+    </div>
+    <div class="col-md-6">
+        <h5>Synopsis</h5>
+        <p>@Model.Movie.Description</p>
+    </div>
+    <div class="col-md-3">
+        <h5>Related Movies</h5>
+        @foreach (var m in @Model.Category)
+        {
+            <div class="col-md-6">
+                <a class="text-decoration-none" asp-page="./Details" asp-route-id="@m.Id">
+                    <P><img class="card-img-top " src="/images/posters/@m.ImageName" alt="Card image cap"></p>
+                </a>
+            </div>
+            <P>@m.Genre</P>
+            <p>@m.Title</p>
+
+        }
+    </div>
 </div>
+
+
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Movie.Id">Edit</a> |
     <a asp-page="./Index">Back to List</a>
